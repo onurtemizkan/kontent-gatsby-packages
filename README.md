@@ -15,7 +15,7 @@ You can use the plugin in any of the following ways:
 
 ### Using the Kentico Cloud JavaScript SDK configuration object
 
-The source plugin uses the [Kentico Cloud Delivery SDK](https://github.com/Kentico/kentico-cloud-js/tree/master/packages/delivery#kentico-cloud-delivery-sdk) in the background. You can put the [configuration object](https://github.com/Kentico/kentico-cloud-js/blob/master/packages/delivery/DOCS.md#client-configuration) of the JS SDK into the `deliveryClientConfig` property of the [gatsby-config.js](https://github.com/Kentico/gatsby-starter-kentico-cloud/blob/master/gatsby-config.js) file.
+The source plugin uses the [Kentico Cloud Delivery SDK](https://github.com/Kentico/kentico-cloud-js/tree/master/packages/delivery#kentico-cloud-delivery-sdk) in the background. You can put the [configuration object](https://github.com/Kentico/kentico-cloud-js/blob/master/packages/delivery/DOCS.md#client-configuration) of the JS SDK into the `deliveryClientConfig` property of the [gatsby-config.js](https://github.com/Kentico/gatsby-starter-kentico-cloud/blob/master/gatsby-config.js) file - the `gatsby-plugin-react-helmet` plugin is used in the example just because it is recommende to use, not as `gatsby-source-kentico-cloud` plugin's required dependency (see [#52](https://github.com/Kentico/gatsby-source-kentico-cloud/issues/52#issuecomment-467865638)).
 
 ### Features
 
