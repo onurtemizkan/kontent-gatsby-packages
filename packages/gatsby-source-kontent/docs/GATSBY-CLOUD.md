@@ -6,11 +6,11 @@ In this tutorial you will discover how to easily integrate site sourced by Kenti
 
 You will
 
-* Create a website using data from Kentico Kontent.
-* Store its source Code on GitHub.
-* Register this Github repository in Gatsby Cloud.
-* Configure Kentico Kontent webhooks to notify Gatsby Cloud about the content changes on preview environment as well as on production.
-* Configure preview URLs in Kentico Kontent.
+- Create a website using data from Kentico Kontent.
+- Store its source Code on GitHub.
+- Register this Github repository in Gatsby Cloud.
+- Configure Kentico Kontent webhooks to notify Gatsby Cloud about the content changes on preview environment as well as on production.
+- Configure preview URLs in Kentico Kontent.
 
 ## What are Gatsby Cloud and Kontent, and why use them together
 
@@ -24,7 +24,7 @@ First, you’ll need a Gatsby site with a [gatsby-source-kontent](https://www.ga
 
 ## Signing in to Gatsby Cloud
 
-[Access Gatsby Cloud](https://gatsbyjs.com/dashboard/sites/create) and select **Sign in with GitHub**. You’ll be asked to authorize the Gatsby Cloud app with your GitHub account. If you need to request access to one or more repositories, you can click *request access* now or later when creating an instance.
+[Access Gatsby Cloud](https://gatsbyjs.com/dashboard/sites/create) and select **Sign in with GitHub**. You’ll be asked to authorize the Gatsby Cloud app with your GitHub account. If you need to request access to one or more repositories, you can click _request access_ now or later when creating an instance.
 
 Once signed in, configuring Gatsby Cloud with Kontent requires several steps that are walked through below.
 
@@ -42,7 +42,7 @@ Pick your Gatsby site from the list of GitHub repositories.
 
 If you don’t see your site, it might be because it belongs to a GitHub organization rather than your personal account. You can connect a new GitHub Organization.
 
-*Note: Repositories must contain one Gatsby project configured at their root to be enabled. Gatsby Cloud works best with Gatsby version 2.20.36 and higher.*
+_Note: Repositories must contain one Gatsby project configured at their root to be enabled. Gatsby Cloud works best with Gatsby version 2.20.36 and higher._
 
 You’ll need to select a branch and then indicate the publish directory where the `gatsby-config.js` lives. If you leave the field blank, it defaults to the root of the site.
 
@@ -56,13 +56,13 @@ Click **Skip this step** to configure Kontent manually.
 
 ![Integration Step - automatic or manual](./assets/integration-step.png)
 
-*Gatsby Cloud will automatically try and detect environment variables necessary in your `gatsby-config.js`. However — consider adding any additional variables that the automatic detection may have missed. See [Setting up Environment Variables](#setting-up-environment-variables) for more info. You'll be able to add, delete, or update these later on in your Site Settings.*
+_Gatsby Cloud will automatically try and detect environment variables necessary in your `gatsby-config.js`. However — consider adding any additional variables that the automatic detection may have missed. See [Setting up Environment Variables](#setting-up-environment-variables) for more info. You'll be able to add, delete, or update these later on in your Site Settings._
 
 ### Setting up Environment Variables
 
 An environment variable references a value that can affect how running processes will behave in a specific environment, such as staging and production environments. You must save your environment variables in Gatsby Cloud to authorize your instance to pull source data from Kontent.
 
-First, open your Kontent project and go to **Project settings** > **API Keys**. 
+First, open your Kontent project and go to **Project settings** > **API Keys**.
 On the API keys screen, copy the values for **Project ID** and **Preview API key** (Primary or Secondary).
 
 ![Kontent API keys section](./assets/kontent-api-keys.png)
@@ -73,11 +73,11 @@ Then go to **Project settings** > **Localization** to get the codenames of your 
 
 The language codenames used in the [`gatsby-starter-kontent-lumen`](https://github.com/Kentico/gatsby-starter-kontent-lumen) sample app are `en-US,cs-CZ`.
 
-Value | Environment Variable Name
------------- | -------------
-<YOUR_PROJECT_ID> | KONTENT_PROJECT_ID
-<YOUR_PREVIEW_API_KEY> | KONTENT_PREVIEW_KEY
-<YOUR_LANGUAGE1,YOUR_LANGUAGE2> | KONTENT_LANGUAGE_CODENAMES
+| Value                           | Environment Variable Name  |
+| ------------------------------- | -------------------------- |
+| <YOUR_PROJECT_ID>               | KONTENT_PROJECT_ID         |
+| <YOUR_PREVIEW_API_KEY>          | KONTENT_PREVIEW_KEY        |
+| <YOUR_LANGUAGE1,YOUR_LANGUAGE2> | KONTENT_LANGUAGE_CODENAMES |
 
 You will want to set `KONTENT_PREVIEW_ENABLED` to `true` for Preview and `false` for Builds.
 
@@ -85,7 +85,7 @@ You will want to set `KONTENT_PREVIEW_ENABLED` to `true` for Preview and `false`
 
 Once you’ve entered your variables, click **Save** and then **Create site**.
 
-Go to the *Preview* tab and wait for the preview instance to be created.
+Go to the _Preview_ tab and wait for the preview instance to be created.
 
 ## Webhooks: Configuring your Gatsby site to be updated with content changes
 
@@ -95,7 +95,7 @@ You’ll add two webhooks in Kontent: one for Gatsby Preview and another for Gat
 
 ### Adding a Preview Webhook
 
-Navigate to your Gatsby Cloud instance and click **Site Settings**. Copy the *Preview Webhook* on this page.
+Navigate to your Gatsby Cloud instance and click **Site Settings**. Copy the _Preview Webhook_ on this page.
 
 ![Copying the Preview webhook URL](./assets/webhook-preview.png)
 
@@ -103,15 +103,39 @@ Navigate to your Gatsby Cloud instance and click **Site Settings**. Copy the *Pr
 
 ![Kontent webhooks menu](./assets/kontent-webhooks.png)
 
-~~Name the webhook and paste the *Preview webhook* into the URL address field.~~
+~~Name the webhook and paste the _Preview webhook_ into the URL address field.~~
 
-> Following webhook triggers are currently available via [API](https://docs.kontent.ai/reference/management-api-v2#operation/add-a-webhook) (use `preview_delivery_api_content_changes` as trigers section and `uspert` + `archive` as operations). The UI and documentation is about to be released in the next iteration. (The UI is currently available on QA environment)
-
-In the webhook configuration, select the *Create or Update* and *Delete* triggers under DELIVERY PREVIEW API TRIGGERS.
+~~In the webhook configuration, select the _Create or Update_ and _Delete_ triggers under DELIVERY PREVIEW API TRIGGERS.~~
 
 ![Kontent preview webhook configuration](./assets/preview-webhook-configuration.png)
 
-Click **Save**.
+~~Click **Save**.~~
+
+> Following webhook triggers are currently available via [API](https://docs.kontent.ai/reference/management-api-v2#operation/add-a-webhook) (use `preview_delivery_api_content_changes` as trigers section and `uspert` + `archive` as operations). **The UI and documentation is about to be released in the next iteration 05/13/2020**. (The UI is currently available on QA environment). The request would looks like that:
+
+```sh
+curl --request POST \
+  --url https://manage.kontent.ai/v2/projects/<YOUR_PROJECT_ID>/webhooks \
+  --header 'Authorization: Bearer <YOUR_API_KEY>' \
+  --header 'Content-type: application/json' \
+    --data '
+{
+  "name": "Example",
+  "url": "https://example.com",
+  "secret": "secret",
+  "triggers": {
+    "preview_delivery_api_content_changes": [
+      {
+        "type": "content_item_variant",
+        "operations": [
+          "archive",
+          "upsert"
+        ]
+      }
+    ]
+  }
+}'
+```
 
 Your Preview webhook is now ready! When you change your content in Kontent, your Gatsby Preview will update!
 
@@ -125,9 +149,9 @@ In Kentico Kontent, go to **Project settings** > **Webhooks** and click **Create
 
 ![Kontent webhooks menu with one webhook](./assets/kontent-webhooks-with-webhook.png)
 
-Name the webhook and paste the *Build webhook* in the URL address field.
+Name the webhook and paste the _Build webhook_ in the URL address field.
 
-In the webhook configuration, select the *Publish* and *Unpublish* triggers under DELIVERY API TRIGGERS.
+In the webhook configuration, select the _Publish_ and _Unpublish_ triggers under DELIVERY API TRIGGERS.
 
 ![Kontent build webhook configuration](./assets/build-webhook-configuration.png)
 
